@@ -74,7 +74,7 @@ describe('#convert', () => {
       it('returns without title', async () => {
         const url = `https://www.notion.so/asnunes/Simple-Page-Text-${pageId}`;
 
-        const response = await NotionPageToHtml.convert(url, {
+        const response = await NotionPageToHtml.convert(url, "", {
           excludeTitleFromHead: true,
         });
 
@@ -86,7 +86,7 @@ describe('#convert', () => {
       it('returns without style tag', async () => {
         const url = `https://www.notion.so/asnunes/Simple-Page-Text-${pageId}`;
 
-        const response = await NotionPageToHtml.convert(url, {
+        const response = await NotionPageToHtml.convert(url, "", {
           excludeCSS: true,
         });
 
@@ -98,7 +98,7 @@ describe('#convert', () => {
       it('returns without metatags', async () => {
         const url = `https://www.notion.so/asnunes/Simple-Page-Text-${pageId}`;
 
-        const response = await NotionPageToHtml.convert(url, {
+        const response = await NotionPageToHtml.convert(url, "", {
           excludeMetadata: true,
         });
 
@@ -110,7 +110,7 @@ describe('#convert', () => {
       it('returns without script tags', async () => {
         const url = `https://www.notion.so/asnunes/Simple-Page-Text-${pageId}`;
 
-        const response = await NotionPageToHtml.convert(url, {
+        const response = await NotionPageToHtml.convert(url, "", {
           excludeScripts: true,
         });
 
@@ -122,7 +122,7 @@ describe('#convert', () => {
       it('returns body content only without header', async () => {
         const url = `https://www.notion.so/asnunes/Simple-Page-Text-${pageId}`;
 
-        const response = await NotionPageToHtml.convert(url, {
+        const response = await NotionPageToHtml.convert(url, "", {
           excludeHeaderFromBody: true,
         });
 
@@ -136,7 +136,7 @@ describe('#convert', () => {
       it('returns body content only', async () => {
         const url = `https://www.notion.so/asnunes/Simple-Page-Text-${pageId}`;
 
-        const response = await NotionPageToHtml.convert(url, {
+        const response = await NotionPageToHtml.convert(url, "", {
           bodyContentOnly: true,
         });
 

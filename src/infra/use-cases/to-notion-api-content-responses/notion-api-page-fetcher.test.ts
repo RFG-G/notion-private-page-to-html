@@ -10,7 +10,7 @@ describe('#getNotionPageContents', () => {
     nock.cleanAll();
   });
 
-  const makeSut = (notionPageId: string): NotionApiPageFetcher => {
+  const makeSut = (notionPageId: string, notionToken: string = ""): NotionApiPageFetcher => {
     const httpPostClient = new NodeHttpPostClient();
     const notionPageIdValidator = new NotionPageIdValidator();
     const pageRecordValidator = new PageRecordValidator();
@@ -18,6 +18,7 @@ describe('#getNotionPageContents', () => {
 
     return new NotionApiPageFetcher(
       notionPageId,
+      notionToken,
       httpPostClient,
       notionPageIdValidator,
       pageRecordValidator,
