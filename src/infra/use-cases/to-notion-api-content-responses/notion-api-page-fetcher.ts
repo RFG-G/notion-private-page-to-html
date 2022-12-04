@@ -18,7 +18,6 @@ export class NotionApiPageFetcher {
 
   async getNotionPageContents(): Promise<NotionApiContentResponse[]> {
     const pageRecords = await this.fetchRecordValues();
-    console.log(pageRecords)
     const pageRecordError = this.pageRecordValidator.validate(this.notionPageId, pageRecords);
     if (pageRecordError) throw pageRecordError;
 
