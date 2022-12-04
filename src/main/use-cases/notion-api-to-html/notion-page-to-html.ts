@@ -13,7 +13,7 @@ export class NotionPageToHtml {
   /**
    * @description It converts a Notion page to HTML. Page must be public before it can be converted.
    * It can be made private again after the conversion.
-   * @param pageURL The URL of the page to convert. Can be notion.so or notion.site URL.
+   * @param pageId The id of the page to convert.
    * @param htmlOptions Options to customize the HTML output. It is an object with the following properties:
    * @param htmlOptions.excludeCSS If true, it will return html without style tag. It is false by default.
    * @param htmlOptions.excludeMetadata If true, it will return html without metatags. It is false by default.
@@ -31,8 +31,7 @@ export class NotionPageToHtml {
    * @throws If the page is not found, it will throw an error.
    * @throws If the url is invalid, it will throw an error.
    */
-  static async convert(pageURL: string, notionToken: string = "", htmlOptions: HtmlOptions = {}): Promise<NotionPage> {
-    const pageId = createNotionUrlToPageId(pageURL).toPageId();
+  static async convert(pageId: string, notionToken: string = "", htmlOptions: HtmlOptions = {}): Promise<NotionPage> {
     const fetcher = await createNotionApiPageFetcher(pageId, notionToken);
     const notionApiResponses = await fetcher.getNotionPageContents();
     const blocks = new NotionApiContentResponsesToBlocks(notionApiResponses).toBlocks();
