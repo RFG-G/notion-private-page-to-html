@@ -3,10 +3,10 @@ import { NotionApiContentResponse } from '../../protocols/notion-api-content-res
 import { NotionPageIdValidator, PageRecordValidator, PageChunkValidator } from './services';
 
 const NOTION_API_PATH = 'https://www.notion.so/api/v3/';
-
 export class NotionApiPageFetcher {
   constructor(
     private readonly notionPageId: string,
+    private readonly notionToken: string,
     private readonly httpPostClient: HttpPostClient,
     private readonly notionPageIdValidator: NotionPageIdValidator,
     private readonly pageRecordValidator: PageRecordValidator,
@@ -18,6 +18,7 @@ export class NotionApiPageFetcher {
 
   async getNotionPageContents(): Promise<NotionApiContentResponse[]> {
     const pageRecords = await this.fetchRecordValues();
+    console.log(pageRecords)
     const pageRecordError = this.pageRecordValidator.validate(this.notionPageId, pageRecords);
     if (pageRecordError) throw pageRecordError;
 
@@ -105,7 +106,7 @@ export class NotionApiPageFetcher {
           table: 'block',
         },
       ],
-    });
+    }, {'token_v2': this.notionToken});
   }
 
   private fetchPageChunk(): Promise<HttpResponse> {
@@ -117,7 +118,7 @@ export class NotionApiPageFetcher {
       },
       chunkNumber: 0,
       verticalColumns: false,
-    });
+    }, {'token_v2': this.notionToken});
   }
 
   private fetchRecordValuesByContentIds(contentIds: string[]): Promise<HttpResponse> {
@@ -133,6 +134,6 @@ export class NotionApiPageFetcher {
         table: 'block',
         version: -1,
       })),
-    });
+    }, {'token_v2': this.notionToken});
   }
 }

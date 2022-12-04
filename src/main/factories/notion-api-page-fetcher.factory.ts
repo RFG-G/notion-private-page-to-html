@@ -6,7 +6,7 @@ import {
   PageRecordValidator,
 } from '../../infra/use-cases/to-notion-api-content-responses/services';
 
-export const createNotionApiPageFetcher = async (pageId: string): Promise<NotionApiPageFetcher> => {
+export const createNotionApiPageFetcher = async (pageId: string, notionToken: string): Promise<NotionApiPageFetcher> => {
   const httpPostClient = new NodeHttpPostClient();
 
   const notionPageIdValidator = new NotionPageIdValidator();
@@ -15,6 +15,7 @@ export const createNotionApiPageFetcher = async (pageId: string): Promise<Notion
 
   return new NotionApiPageFetcher(
     pageId,
+    notionToken,
     httpPostClient,
     notionPageIdValidator,
     pageRecordValidator,

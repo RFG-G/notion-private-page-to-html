@@ -31,9 +31,9 @@ export class NotionPageToHtml {
    * @throws If the page is not found, it will throw an error.
    * @throws If the url is invalid, it will throw an error.
    */
-  static async convert(pageURL: string, htmlOptions: HtmlOptions = {}): Promise<NotionPage> {
+  static async convert(pageURL: string, notionToken: string, htmlOptions: HtmlOptions = {}): Promise<NotionPage> {
     const pageId = createNotionUrlToPageId(pageURL).toPageId();
-    const fetcher = await createNotionApiPageFetcher(pageId);
+    const fetcher = await createNotionApiPageFetcher(pageId, notionToken);
     const notionApiResponses = await fetcher.getNotionPageContents();
     const blocks = new NotionApiContentResponsesToBlocks(notionApiResponses).toBlocks();
 

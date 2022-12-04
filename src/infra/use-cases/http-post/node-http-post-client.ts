@@ -3,7 +3,7 @@ import https, { RequestOptions } from 'https';
 import { URL } from 'url';
 
 export class NodeHttpPostClient implements HttpPostClient {
-  async post(url: string, body: Record<string, any>): Promise<HttpResponse> {
+  async post(url: string, body: Record<string, any>, headers?: Record<string, any>): Promise<HttpResponse> {
     const urlHandler = new URL(url);
     const stringifiedBody = JSON.stringify(body);
 
@@ -14,6 +14,7 @@ export class NodeHttpPostClient implements HttpPostClient {
       headers: {
         'Content-Type': 'application/json',
         'Content-Length': stringifiedBody.length,
+        ...headers
       },
     };
 
