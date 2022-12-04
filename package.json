@@ -1,11 +1,12 @@
 {
-  "name": "notion-page-to-html",
-  "version": "1.2.0",
-  "description": "It converts public notion pages to html from url",
+  "name": "notion-private-page-to-html",
+  "version": "1.0.0",
+  "description": "It converts private notion pages to html from url",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-
+    "prebuild": "rm -rf ./dist",
+    "prebuild-win": "rm -r ./dist",
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint '*/**/*.{js,ts}' --quiet --fix",
     "lint:staged": "lint-staged",
@@ -17,19 +18,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/asnunes/notion-page-to-html.git"
+    "url": "git+https://github.com/RFG-G/notion-private-page-to-html.git"
   },
   "keywords": [
     "notion",
     "page",
     "html"
   ],
-  "author": "Alexandre Nunes",
+  "author": "Ruslan Dinullin",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/asnunes/notion-page-to-html/issues"
-  },
-  "homepage": "https://github.com/asnunes/notion-page-to-html#readme",
+  "homepage": "https://github.com/RFG-G/notion-private-page-to-html#readme",
   "devDependencies": {
     "@types/jest": "^27.0.2",
     "@types/nock": "^11.1.0",
