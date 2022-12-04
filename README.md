@@ -1,12 +1,8 @@
 ![Cover image](docs/cover.png)
 
-# Notion Page To HTML
+# Private Notion Page To HTML
 
-NodeJS tool to convert public notion pages to HTML.
-
-Also available as public API:
-
-[https://notion-page-to-html-api.vercel.app/](https://notion-page-to-html-api.vercel.app/)
+NodeJS tool to convert private notion pages to HTML.
 
 ## Supported features
 
@@ -30,7 +26,7 @@ Most of the native Notion blocks are currently supported:
 
 Embeds and tables are not supported yet.
 
-## Why notion-page-to-html?
+## Why notion-private-page-to-html?
 
 It's perfect as content manager system
 
@@ -46,17 +42,17 @@ It's fully customizable
 Install it in a NodeJS project using npm
 
 ```bash
-npm install notion-page-to-html
+npm install notion-private-page-to-html
 ```
 
-Then, just import it and paste a public Notion page url
+Then, just import it and paste a private Notion page url
 
 ```jsx
-const NotionPageToHtml = require('notion-page-to-html');
+const NotionPageToHtml = require('notion-private-page-to-html');
 
 // using async/await
 async function getPage() {
-  const { title, icon, cover, html } = await NotionPageToHtml.convert("https://www.notion.so/asnunes/Simple-Page-Text-4d64bbc0634d4758befa85c5a3a6c22f");
+  const { title, icon, cover, html } = await NotionPageToHtml.convert("page_url", "notion_token");
   console.log(title, icon, cover, html);
 }
 
@@ -68,6 +64,7 @@ getPage();
 ```jsx
 NotionPageToHtml.convert(
   'https://www.notion.so/asnunes/Simple-Page-Text-4d64bbc0634d4758befa85c5a3a6c22f',
+  notionToken
   options,
 );
 ```
