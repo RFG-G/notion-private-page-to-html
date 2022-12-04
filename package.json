@@ -1,7 +1,7 @@
 {
   "name": "notion-private-page-to-html",
-  "version": "1.0.0",
-  "description": "It converts private notion pages to html from url",
+  "version": "1.0.1",
+  "description": "It converts private notion pages to html",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
