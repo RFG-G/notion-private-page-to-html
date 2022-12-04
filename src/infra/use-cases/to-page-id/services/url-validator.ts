@@ -7,7 +7,7 @@ export class UrlValidator implements Validation<[string]> {
     return null;
   }
 
-  private isNotionPargeUrl(url: string): boolean {
-    return /^http(s?):\/\/((w{3}.)?notion.so|[\w\-]*\.notion\.site)\/((\w)+?\/)?(\w|-){32,}/g.test(url);
+  private isNotionPargeUrl(pageId: string): boolean {
+    return !!pageId 
   }
 }

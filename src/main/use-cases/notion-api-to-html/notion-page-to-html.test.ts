@@ -1,7 +1,6 @@
 import nock from 'nock';
 import { resolve } from 'path';
 import { NotionPageToHtml } from './index';
-import { InvalidPageUrlError } from '../../../infra/errors';
 import * as NotionApiMocks from '../../../__tests__/mocks/notion-api-responses';
 import * as HTML_RESPONSES from '../../../__tests__/mocks/html';
 import base64 from '../../../__tests__/mocks/img/base64';
@@ -30,41 +29,32 @@ describe('#convert', () => {
 
     describe('When no options is given', () => {
       it('returns full html when full url is given', async () => {
-        const url = `https://www.notion.so/asnunes/Simple-Page-Text-${pageId}`;
-
-        const response = await NotionPageToHtml.convert(url);
+        const response = await NotionPageToHtml.convert(pageId);
 
         expect(response.html.replace(/\s/g, '')).toEqual(HTML_RESPONSES.FULL_DOCUMENT.replace(/\s/g, ''));
       });
 
       it('returns full html when short url is given', async () => {
-        const url = `https://www.notion.so/${pageId}`;
-
-        const response = await NotionPageToHtml.convert(url);
+        const response = await NotionPageToHtml.convert(pageId);
 
         expect(response.html.replace(/\s/g, '')).toEqual(HTML_RESPONSES.FULL_DOCUMENT.replace(/\s/g, ''));
       });
 
       it('returns page title in title prop', async () => {
-        const url = `https://www.notion.so/${pageId}`;
-
-        const response = await NotionPageToHtml.convert(url);
+        const response = await NotionPageToHtml.convert(pageId);
 
         expect(response.title).toEqual('Simple Page Test');
       });
 
       it('returns page cover in cover prop', async () => {
-        const url = `https://www.notion.so/${pageId}`;
-
-        const response = await NotionPageToHtml.convert(url);
+        const response = await NotionPageToHtml.convert(pageId);
 
         expect(response.cover).toEqual(base64);
       });
 
       it('returns page icon in icon prop', async () => {
-        const url = `https://www.notion.so/${pageId}`;
 
-        const response = await NotionPageToHtml.convert(url);
+        const response = await NotionPageToHtml.convert(pageId);
 
         expect(response.icon).toEqual('🤴');
       });
@@ -72,9 +62,7 @@ describe('#convert', () => {
 
     describe('When excludeTitleFromHead is given', () => {
       it('returns without title', async () => {
-        const url = `https://www.notion.so/asnunes/Simple-Page-Text-${pageId}`;
-
-        const response = await NotionPageToHtml.convert(url, "", {
+        const response = await NotionPageToHtml.convert(pageId, "", {
           excludeTitleFromHead: true,
         });
 
@@ -84,9 +72,7 @@ describe('#convert', () => {
 
     describe('When excludeCSS is given', () => {
       it('returns without style tag', async () => {
-        const url = `https://www.notion.so/asnunes/Simple-Page-Text-${pageId}`;
-
-        const response = await NotionPageToHtml.convert(url, "", {
+        const response = await NotionPageToHtml.convert(pageId, "", {
           excludeCSS: true,
         });
 
@@ -96,9 +82,7 @@ describe('#convert', () => {
 
     describe('When excludeMetadata is given', () => {
       it('returns without metatags', async () => {
-        const url = `https://www.notion.so/asnunes/Simple-Page-Text-${pageId}`;
-
-        const response = await NotionPageToHtml.convert(url, "", {
+        const response = await NotionPageToHtml.convert(pageId, "", {
           excludeMetadata: true,
         });
 
@@ -108,9 +92,7 @@ describe('#convert', () => {
 
     describe('When excludeScripts is given', () => {
       it('returns without script tags', async () => {
-        const url = `https://www.notion.so/asnunes/Simple-Page-Text-${pageId}`;
-
-        const response = await NotionPageToHtml.convert(url, "", {
+        const response = await NotionPageToHtml.convert(pageId, "", {
           excludeScripts: true,
         });
 
@@ -120,9 +102,7 @@ describe('#convert', () => {
 
     describe('When excludeHeaderFromBody is given', () => {
       it('returns body content only without header', async () => {
-        const url = `https://www.notion.so/asnunes/Simple-Page-Text-${pageId}`;
-
-        const response = await NotionPageToHtml.convert(url, "", {
+        const response = await NotionPageToHtml.convert(pageId, "", {
           excludeHeaderFromBody: true,
         });
 
@@ -134,29 +114,12 @@ describe('#convert', () => {
 
     describe('When bodyContentOnly is given', () => {
       it('returns body content only', async () => {
-        const url = `https://www.notion.so/asnunes/Simple-Page-Text-${pageId}`;
-
-        const response = await NotionPageToHtml.convert(url, "", {
+        const response = await NotionPageToHtml.convert(pageId, "", {
           bodyContentOnly: true,
         });
 
         expect(response.html.replace(/\s/g, '')).toEqual(HTML_RESPONSES.BODY_ONLY.replace(/\s/g, ''));
       });
-    });
-  });
-
-  describe('When wrong link is given', () => {
-    it('throws invalid page url error', async () => {
-      nock('https://www.notion.so').post('/api/v3/loadPageChunk').reply(200, NotionApiMocks.SUCCESSFUL_PAGE_CHUCK);
-
-      nock('https://www.notion.so').post('/api/v3/getRecordValues').reply(200, NotionApiMocks.SUCCESSFUL_RECORDS);
-
-      const response = () =>
-        NotionPageToHtml.convert('https://www.example.com/asnunes/Simple-Page-Text-4d64bbc0634d4758befa85c5a3a6c22f');
-
-      await expect(response).rejects.toThrow(
-        new InvalidPageUrlError('https://www.example.com/asnunes/Simple-Page-Text-4d64bbc0634d4758befa85c5a3a6c22f'),
-      );
     });
   });
 });

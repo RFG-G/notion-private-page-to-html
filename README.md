@@ -27,17 +27,6 @@ Most of the native Notion blocks are currently supported:
 
 Embeds and tables are not supported yet.
 
-## Why notion-private-page-to-html?
-
-It's perfect as content manager system
-
-- This tool can get any public page from Notion and convert it to html. This is perfect
-  for the ones who want to use Notion as CMS. Once it gets page content from Notion, it becomes completely independent (images are converted to base64 so you do not have to call Notion again to get content). You can convert a page and then make it private again.
-
-It's fully customizable
-
-- You can choose how you want to get page content. Do you want title, cover, and icon in html body? You can do that! Do you want they apart of html so you can choose where place it? You have it. Do want html without style? Without Equation and Code Highlighting scripts? Do you want body content only? You have those options too.
-
 ## Basic Usage
 
 Install it in a NodeJS project using npm
@@ -46,14 +35,14 @@ Install it in a NodeJS project using npm
 npm install notion-private-page-to-html
 ```
 
-Then, just import it and paste a private Notion page url
+Then, just import it and paste a private Notion page id
 
 ```jsx
 const NotionPageToHtml = require('notion-private-page-to-html');
 
 // using async/await
 async function getPage() {
-  const { title, icon, cover, html } = await NotionPageToHtml.convert("page_url", "notion_token");
+  const { title, icon, cover, html } = await NotionPageToHtml.convert("page_Id", "notion_token");
   console.log(title, icon, cover, html);
 }
 
@@ -64,9 +53,9 @@ getPage();
 
 ```jsx
 NotionPageToHtml.convert(
-  'https://www.notion.so/asnunes/Simple-Page-Text-4d64bbc0634d4758befa85c5a3a6c22f',
+  pageId,
   notionToken
-  options,
+  options
 );
 ```
 
@@ -83,46 +72,3 @@ NotionPageToHtml.convert(
 
 ---
 
-## Development and testing
-
-1. Clone this application
-
-2. Make sure you have node v14 or higher and then install all dependencies
-
-````
-npm i
-````
-Running tests:
-
-````
-npm test
-````
-
-Installing locally in another project:
-````
-npm run build
-npm pack
-````
-Inside your project:
-````
-npm i /path/to/tar/gz
-````
-
-Docker approach for testing
-
-1. Make sure you have Docker and Docker Compose installed and then run:
-````
-make test
-````
-
-## Contributing
-
-We love your feedback! Feel free to:
-
-- Report a bug
-- Discuss the current state of the code
-- Submit a fix
-- Propose new features
-- Become a maintainer
-
-Just create a GitHub issue or a PR ;)
